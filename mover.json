@@ -1,0 +1,12 @@
+{
+    "downloadFolder" : "Users/carlosperez/Downloads",
+    "picturesFolder" : "Users/carlosperez/Downloads/Pictures",
+    "audioFolder" : "Users/carlosperez/Downloads/Audio",
+    "compressedFolder" : "Users/carlosperez/Downloads/CompressedFolder",
+    "others" : "Users/carlosperez/Downloads/Others",
+    "filesExtensions" : {
+        "picturesExtensions" : [".jpeg", ".jpg", ".png", ".svg"],
+        "audioExtensions" : [".mp3", ".mp4"],
+        "compressedExtensions" : [".zip", ".rar", ".dmg"]
+    } 
+}
