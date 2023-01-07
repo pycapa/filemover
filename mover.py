@@ -19,46 +19,65 @@ othersFolder = params['others']
 videoFolder = params['videoFolder']
 extensions = params['filesExtensions']
 
+
 if __name__ == "__main__":
 
+    afiles = []
+    afolders = []
+
+    with os.scandir(downloadFolder) as folders:
+        for folder in folders:
+            if folder.is_dir():
+                afolders.append(folder.name)
+            else:
+                afiles.append(folder.name)
 
     counter = 0
-    for filename in os.listdir(downloadFolder):
-        name, extension = os.path.splitext(downloadFolder + filename)
 
-        # validating folder
-        if os.path.exists(pictureFolder) == False: os.mkdir(pictureFolder)
+    try:
+        for filename in os.listdir(downloadFolder):
+            name, extension = os.path.splitext(downloadFolder + filename)
 
-        if os.path.exists(audioFolder) == False: os.mkdir(audioFolder)
+            # folders validation: if folder doesn't exits the it is created.
 
-        if os.path.exists(videoFolder) == False: os.mkdir(videoFolder)
+            if os.path.exists(pictureFolder) == False: os.mkdir(pictureFolder)
 
-        if os.path.exists(compressedFolder) == False: os.mkdir(compressedFolder)
+            if os.path.exists(audioFolder) == False: os.mkdir(audioFolder)
 
-        if os.path.exists(othersFolder) == False: os.mkdir(othersFolder)
-        
-        if  extension in extensions['picturesExtensions']: # compress image file and move them to picture folder.
-            picture = Image.open(downloadFolder + filename)
-            picture.save(pictureFolder + "compressed_" + filename, optimize=True)
-            os.remove(downloadFolder + filename)
+            if os.path.exists(videoFolder) == False: os.mkdir(videoFolder)
+
+            if os.path.exists(compressedFolder) == False: os.mkdir(compressedFolder)
+            
+            if os.path.exists(othersFolder) == False: os.mkdir(othersFolder)
+
+
+            # extensions should be configured in mover.json: "fileExtensions"
+
+            if  extension in extensions['picturesExtensions']: # compress image file and move them to picture folder.
+                picture = Image.open(downloadFolder + filename)
+                picture.save(downloadFolder + filename, optimize=True)
+                os.replace((downloadFolder + filename), pictureFolder + filename)
+
+            elif extension in extensions['audioExtensions']: # compress image file and move them to picture folder.
+                os.replace(downloadFolder + filename, audioFolder + filename)
+
+            elif extension in extensions['videoExtensions']: # compress image file and move them to picture folder.
+                os.replace(downloadFolder + filename, videoFolder + filename)
+
+            elif extension in extensions['compressedExtensions']:  #rename compressed files to compressed folderr.
+                os.replace(downloadFolder + filename, compressedFolder + filename)
+
+            elif (filename in afiles):
+                os.replace(downloadFolder + filename, othersFolder + filename)
+
             counter += 1
-        elif extension in extensions['audioExtensions']: # compress image file and move them to picture folder.
-                os.rename(downloadFolder + filename, audioFolder + filename)
-                counter += 1
-        elif extension in extensions['videoExtensions']: # compress image file and move them to picture folder.
-            os.rename(downloadFolder + filename, videoFolder + filename)
-            counter += 1
-        elif extension in extensions['compressedExtensions']: # rename compressed files to compressed folderr.
-            os.rename(downloadFolder + filename, compressedFolder + filename)
-            counter += 1
-        else:
-            os.rename(downloadFolder + filename, othersFolder + filename)
-            counter += 1
+        # script log.
+
+        print(f'{counter} file(s) were(was) moved  to folders')
+    except (NameError):
+        print("Somenthing went wrong: " + NameError)
 
 
 
-    print(f'there were compressed and moved {counter} file(s)')
-
-
-        
+            
 
