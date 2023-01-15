@@ -1,0 +1,14 @@
+{
+    "downloadFolder" : "/Users/carlosperez/Downloads/",
+    "picturesFolder" : "/Users/carlosperez/Downloads/Pictures/",
+    "audioFolder" : "/Users/carlosperez/Downloads/Audio/",
+    "videoFolder" : "/Users/carlosperez/Downloads/Video/",
+    "compressedFolder" : "/Users/carlosperez/Downloads/CompressedFolder/",
+    "others" : "/Users/carlosperez/Downloads/Others/",
+    "filesExtensions" : {
+        "picturesExtensions" : [".jpeg", ".jpg", ".png", ".svg"],
+        "audioExtensions" : [".mp3", ".mp4"],
+        "videoExtensions" : [".mov"],
+        "compressedExtensions" : [".zip", ".rar", ".dmg"]
+    } 
+}
